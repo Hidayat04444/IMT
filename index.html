@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMT Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            color: #333;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #0077b6;
+        }
+        label {
+            font-size: 1rem;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            background: #0077b6;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        button:hover {
+            background: #005f87;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #0077b6;
+        }
+        .category {
+            font-size: 1rem;
+            color: #ff6b6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>IMT Calculator</h1>
+        <form id="imtForm">
+            <label for="height">Tinggi Badan (cm):</label>
+            <input type="number" id="height" placeholder="Masukkan tinggi badan" required>
+            
+            <label for="weight">Berat Badan (kg):</label>
+            <input type="number" id="weight" placeholder="Masukkan berat badan" required>
+            
+            <button type="button" onclick="calculateIMT()">Hitung IMT</button>
+        </form>
+        <div id="result" class="result"></div>
+        <div id="category" class="category"></div>
+    </div>
+
+    <script>
+        function calculateIMT() {
+            const height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to meter
+            const weight = parseFloat(document.getElementById('weight').value);
+
+            if (!height || !weight) {
+                alert("Harap masukkan tinggi dan berat badan dengan benar.");
+                return;
+            }
+
+            const imt = (weight / (height * height)).toFixed(2);
+
+            let category = '';
+            if (imt < 18.5) {
+                category = 'Berat badan kurang';
+            } else if (imt >= 18.5 && imt <= 24.9) {
+                category = 'Berat badan normal';
+            } else if (imt >= 25 && imt <= 29.9) {
+                category = 'Berat badan berlebih';
+            } else {
+                category = 'Obesitas';
+            }
+
+            document.getElementById('result').textContent = `IMT Anda: ${imt}`;
+            document.getElementById('category').textContent = `Kategori: ${category}`;
+        }
+    </script>
+</body>
+</html>
